@@ -1,0 +1,17 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: date-time-application
+  # 关于SpringBoot中序列化工具的属性配置
+  # SpringBoot默认使用jackson
+#  jackson:
+    # 定义了jackson关于Date类型数据的格式
+    # 请求中的参数根据这个格式转换为Date类型数据
+    # 响应中的Date类型数据根据这个格式进行格式化
+    # 前提1:必须使用jackson进行序列化/反序列化，如get请求中的param就不进行反序列化
+    # 前提2:只针对Date类型，LocalDateTime系列类型数据需要自行转换
+    # 如果覆盖ObjectMapper的序列化器会导致这里的配置失效，推荐自定义ObjectMapper的序列化器
+#    date-format: yyyy-MM-dd HH:mm:ss
+#    time-zone: GMT+8
