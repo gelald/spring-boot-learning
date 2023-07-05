@@ -13,6 +13,7 @@
         <module>filter</module>
         <module>interceptor</module>
         <module>datetime</module>
+        <module>alternate-print</module>
     </modules>
 
     <properties>
