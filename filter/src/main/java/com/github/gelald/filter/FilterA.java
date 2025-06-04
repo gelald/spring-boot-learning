@@ -1,13 +1,16 @@
 package com.github.gelald.filter;
 
-import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
+import jakarta.servlet.*;
+import jakarta.servlet.annotation.WebFilter;
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.IOException;
 
 /**
  * @author WuYingBin
  * date: 2023/4/3
  */
+@Slf4j
 @WebFilter(filterName = "annotation-registration-filter", urlPatterns = "/demo/*")
 public class FilterA implements Filter {
     @Override
@@ -19,7 +22,7 @@ public class FilterA implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         //执行Filter逻辑
-        System.out.println("进入通过注解注册的Filter");
+        log.info("[Filter] ====== 通过 @WebFilter 注解注册的 Filter");
         //让请求继续进入Filter链的下一个节点
         chain.doFilter(request, response);
     }

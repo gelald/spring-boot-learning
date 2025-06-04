@@ -1,0 +1,23 @@
+server:
+  port: 17873
+
+springdoc:
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    tags-sorter: order
+    operations-sorter: order
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      display-name: 'filter-test-cases'
+      paths-to-match: '/**'
+      packages-to-scan: com.github.gelald.filter
+  default-flat-param-object: true
+
+knife4j:
+  enable: true
+  setting:
+    language: ZH_CN

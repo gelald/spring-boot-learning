@@ -1,9 +1,9 @@
 package com.github.gelald.lifecycle;
 
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 
-import javax.annotation.PostConstruct;
 
 /**
  * @author WuYingBin
@@ -13,23 +13,23 @@ import javax.annotation.PostConstruct;
 public class BeanInit implements InitializingBean {
     public BeanInit() {
         // 1
-        log.info("BeanInit【构造方法】执行");
+        log.info("[init] ===== 第一步 ===== [java -- 构造方法]");
     }
 
     @PostConstruct
     public void postConstruct() {
         // 2
-        log.info("【@PostConstruct修饰的方法】执行");
+        log.info("[init] ===== 第二步 ===== [jakarta模块 -- @PostConstruct]");
     }
 
     @Override
     public void afterPropertiesSet() {
         // 3
-        log.info("InitializingBean接口的【afterPropertiesSet方法】执行");
+        log.info("[init] ===== 第三步 ===== [InitializingBean接口 -- afterPropertiesSet方法]");
     }
 
     public void initMethod() {
         // 4
-        log.info("@Bean注解中指定的【initMethod方法】执行");
+        log.info("[init] ===== 第四步 ===== [@Bean注解指定 -- initMethod方法]");
     }
 }

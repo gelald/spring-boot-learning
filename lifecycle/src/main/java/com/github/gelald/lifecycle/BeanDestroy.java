@@ -1,9 +1,9 @@
 package com.github.gelald.lifecycle;
 
+import jakarta.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.DisposableBean;
 
-import javax.annotation.PreDestroy;
 
 /**
  * @author WuYingBin
@@ -15,17 +15,17 @@ public class BeanDestroy implements DisposableBean {
     @PreDestroy
     public void preDestroy() {
         // 1
-        log.info("【@PreDestroy修饰的方法】执行");
+        log.info("[destroy] ===== 第一步 ===== [jakarta模块 -- @PreDestroy]");
     }
 
     @Override
     public void destroy() {
         // 2
-        log.info("DisposableBean接口的【destroy方法】执行");
+        log.info("[destroy] ===== 第二步 ===== [DisposableBean接口 -- destroy方法]");
     }
 
     public void destroyMethod() {
         // 3
-        log.info("@Bean注解中指定的【destroyMethod方法】执行");
+        log.info("[destroy] ===== 第三步 ===== [@Bean注解指定 -- destroyMethod方法]");
     }
 }

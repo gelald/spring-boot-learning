@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.deser.std.DateDeserializers;
 import com.fasterxml.jackson.databind.ser.std.DateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -38,7 +39,7 @@ public class WebMvcConfig {
         javaTimeModule.addSerializer(Date.class, new DateSerializer(false, DateTimeUtil.DATE_FORMAT));
         javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(DateTimeUtil.DATE_TIME_PATTERN)));
         //反序列化，把json字符串转换成日期类型数据
-        javaTimeModule.addDeserializer(Date.class, new JsonDeserializer<Date>() {
+        javaTimeModule.addDeserializer(Date.class, new JsonDeserializer<>() {
             @Override
             public Date deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
                 if (p.hasToken(JsonToken.VALUE_STRING)) {
