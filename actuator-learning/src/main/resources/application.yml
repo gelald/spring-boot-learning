@@ -1,0 +1,20 @@
+server:
+  port: 17875
+
+management:
+  # endpoints用于设置所有的endpoint，比如base-path、开启哪些endpoint等
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  # endpoint用于设置某一个具体的endpoint
+  endpoint:
+    # 对于health endpoint展示细节，默认会输出diskSpace和ping这两项
+    health:
+      show-details: always
+    # 对于metrics endpoint，如果设置了enabled:false就是禁止访问
+    metrics:
+      enabled: true
+    # 对于custom-endpoint，标记为非敏感
+    custom-endpoint:
+      sensitive: false

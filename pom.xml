@@ -9,11 +9,18 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
+        <!-- no port -->
         <module>lifecycle</module>
-        <module>filter</module>
-        <module>interceptor</module>
-        <module>datetime</module>
+        <!-- no port -->
         <module>alternate-print</module>
+        <!-- 17872 -->
+        <module>datetime</module>
+        <!-- 17873 -->
+        <module>filter</module>
+        <!-- 17874 -->
+        <module>interceptor</module>
+        <!-- 17875 -->
+        <module>actuator-learning</module>
     </modules>
 
     <properties>
