@@ -6,12 +6,14 @@ management:
   endpoints:
     web:
       exposure:
+        # include: "*" 代表开放所有端点
         include: "*"
   # endpoint用于设置某一个具体的endpoint
   endpoint:
     # 对于health endpoint展示细节，默认会输出diskSpace和ping这两项
     health:
       show-details: always
+      show-components: always
     # 对于metrics endpoint，如果设置了enabled:false就是禁止访问
     metrics:
       enabled: true
