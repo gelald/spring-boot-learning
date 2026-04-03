@@ -1,3 +1,7 @@
+spring:
+  application:
+    name: actuator-demo-service
+
 server:
   port: 17875
 
@@ -14,9 +18,30 @@ management:
     health:
       show-details: always
       show-components: always
+      probes:
+        # 单独暴露 liveness/readiness 端点
+        enabled: true
+        # 为readiness/liveness配置一组健康检查，结果取同组健康检查的最低状态
+#      group:
+#        readiness:
+#          include: readinessState
+#        liveness:
+#          include: livenessState
     # 对于metrics endpoint，如果设置了enabled:false就是禁止访问
     metrics:
       enabled: true
-    # 对于custom-endpoint，标记为非敏感
-    custom-endpoint:
+    # 对于features自定义指标，标记为非敏感
+    features:
       sensitive: false
+  metrics:
+    tags:
+      # 添加自定义标签
+      # 假设应用名为  order-service。
+      # 原本的指标：  jvm_memory_used_bytes{area="heap"}
+      # 导出后的指标：jvm_memory_used_bytes{area="heap", application="order-service"}
+      application: ${spring.application.name}
+  prometheus:
+    metrics:
+      export:
+        # 显式开启将指标数据导出给 Prometheus 的功能
+        enabled: true
