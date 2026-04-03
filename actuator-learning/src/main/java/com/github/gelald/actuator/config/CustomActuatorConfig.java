@@ -3,15 +3,18 @@ package com.github.gelald.actuator.config;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.DistributionSummary;
 import io.micrometer.core.instrument.MeterRegistry;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.*;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import java.security.SecureRandom;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 @Configuration
@@ -20,11 +23,43 @@ public class CustomActuatorConfig {
     // 自定义端点
     // 效果：可以通过 http://<ip>:<port>/actuator/<endpoint-id> 来访问
     @Component
-    @Endpoint(id = "custom-endpoint")
-    public class CustomEndpoint {
+    @Endpoint(id = "features")
+    public class FeaturesEndpoint {
+
+        private final Map<String, Feature> features = new ConcurrentHashMap<>();
+
+        public FeaturesEndpoint() {
+            features.put("darkMode", new Feature("darkMode", true));
+            features.put("betaFeatures", new Feature("betaFeatures", false));
+        }
+
+        // 对应 Get 请求方法
         @ReadOperation
-        public String customEndpoint() {
-            return "Custom endpoint response";
+        public Map<String, Feature> features() {
+            return features;
+        }
+
+        // 对应 Post 请求方法，@Selector 对应路径参数，/actuator/features/{name}
+        @ReadOperation
+        public Feature feature(@Selector String name) {
+            return features.get(name);
+        }
+
+        // 对应 Post 请求方法，@Selector 对应路径参数，/actuator/features/{name}
+        @WriteOperation
+        public Feature updateFeature(@Selector String name, boolean enabled) {
+            Feature feature = features.get(name);
+            if (feature != null) {
+                feature.setEnabled(enabled);
+            }
+            return feature;
+        }
+
+        @Data
+        @AllArgsConstructor
+        public static class Feature {
+            private String name;
+            private boolean enabled;
         }
     }
 
