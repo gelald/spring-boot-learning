@@ -30,9 +30,6 @@ management:
     # 对于metrics endpoint，如果设置了enabled:false就是禁止访问
     metrics:
       enabled: true
-    # 对于features自定义指标，标记为非敏感
-    features:
-      sensitive: false
   metrics:
     tags:
       # 添加自定义标签
